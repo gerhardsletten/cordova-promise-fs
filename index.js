@@ -107,6 +107,9 @@ module.exports = function(options){
       var xhr = new XMLHttpRequest();
       xhr.open('GET', url);
       xhr.responseType = "blob";
+      if (this.onprogress) {
+        xhr.onprogress = this.onprogress;
+      }
       xhr.onreadystatechange = function(onSuccess, onError, cb) {
         if (xhr.readyState == 4) {
           if(xhr.status === 200 && !this._aborted){
