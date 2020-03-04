@@ -110,6 +110,11 @@ module.exports = function(options){
       if (this.onprogress) {
         xhr.onprogress = this.onprogress;
       }
+      var me = this;
+      this.abort = function() {
+        me._aborted = true;
+        xhr.abort();
+      }
       xhr.onreadystatechange = function(onSuccess, onError, cb) {
         if (xhr.readyState == 4) {
           if(xhr.status === 200 && !this._aborted){
